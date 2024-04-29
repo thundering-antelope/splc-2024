@@ -18,3 +18,6 @@ Results of a performance evaluation are written to a file `timings.csv`. It cons
 - total run-time
 - accumulated run-time for computing validity of configurations
 - accumulated run-time for computing realisability of configurations
+
+## Affiliation
+Paper Submission "Consistency Is Key: Can Your Product Line Realise What It Models?"

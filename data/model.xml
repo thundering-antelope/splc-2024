@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<extendedFeatureModel>
+	<properties>
+		<graphics key="autolayoutconstraints" value="false"/>
+		<graphics key="legendautolayout" value="true"/>
+		<graphics key="showconstraints" value="true"/>
+		<graphics key="showshortnames" value="false"/>
+		<graphics key="layout" value="horizontal"/>
+		<graphics key="showcollapsedconstraints" value="true"/>
+		<graphics key="legendhidden" value="false"/>
+		<graphics key="layoutalgorithm" value="1"/>
+	</properties>
+	<struct>
+		<and abstract="true" mandatory="true" name="body-comfort-system">
+			<and abstract="true" mandatory="true" name="hmi">
+				<or abstract="true" name="led">
+					<feature name="led-alarm-system">
+						<attribute name="(0,0)" type="long" unit="" value="2"/>
+					</feature>
+					<feature name="led-finger-protection">
+						<attribute name="(0,0)" type="long" unit="" value="1"/>
+					</feature>
+					<feature name="led-central-locking">
+						<attribute name="(0,0)" type="long" unit="" value="1"/>
+					</feature>
+					<feature name="led-power-window">
+						<attribute name="(0,0)" type="long" unit="" value="1"/>
+					</feature>
+					<feature name="led-exterior-mirror">
+						<attribute name="(0,0)" type="long" unit="" value="1"/>
+					</feature>
+					<feature name="led-em-heatable">
+						<attribute name="(0,0)" type="long" unit="" value="1"/>
+					</feature>
+				</or>
+			</and>
+			<and abstract="true" mandatory="true" name="door-system">
+				<and abstract="true" mandatory="true" name="exterior-mirror">
+					<feature mandatory="true" name="em-electric">
+						<attribute name="(1,7)" type="long" unit="" value="10"/>
+						<attribute name="(1,1)" type="long" unit="" value="5"/>
+					</feature>
+					<feature name="em-heatable">
+						<attribute name="(1,1)" type="long" unit="" value="20"/>
+					</feature>
+				</and>
+				<and abstract="true" mandatory="true" name="power-window">
+					<feature mandatory="true" name="pw-finger-protection">
+						<attribute name="(2,6)" type="long" unit="" value="1"/>
+					</feature>
+					<alt abstract="true" mandatory="true" name="pw-control">
+						<feature name="pw-manual">
+							<attribute name="(2,6)" type="long" unit="" value="2"/>
+						</feature>
+						<feature name="pw-automatic">
+							<attribute name="(2,7)" type="long" unit="" value="5"/>
+							<attribute name="(2,6)" type="long" unit="" value="3"/>
+						</feature>
+					</alt>
+				</and>
+			</and>
+			<and abstract="true" name="security">
+				<and name="rc-key">
+					<attribute name="(3,2)" type="long" unit="" value="2"/>
+					<attribute name="(3,3)" type="long" unit="" value="10"/>
+					<feature name="rck-pw-automatic">
+						<attribute name="(1,7)" type="long" unit="" value="5"/>
+						<attribute name="(3,2)" type="long" unit="" value="2"/>
+					</feature>
+					<feature name="rck-exterior-mirror">
+						<attribute name="(2,7)" type="long" unit="" value="10"/>
+						<attribute name="(3,2)" type="long" unit="" value="2"/>
+					</feature>
+					<feature name="rck-alarm-system">
+						<attribute name="(3,2)" type="long" unit="" value="2"/>
+					</feature>
+					<feature name="rck-safety-function">
+						<attribute name="(3,2)" type="long" unit="" value="2"/>
+					</feature>
+				</and>
+				<and name="central-locking">
+					<attribute name="(3,3)" type="long" unit="" value="10"/>
+					<feature name="central-locking-automatic">
+						<attribute name="(3,4)" type="long" unit="" value="1"/>
+					</feature>
+				</and>
+				<and name="alarm-system">
+					<attribute name="(3,3)" type="long" unit="" value="100"/>
+					<attribute name="(3,5)" type="long" unit="" value="4"/>
+					<feature name="alarm-system-interior">
+						<attribute name="(3,3)" type="long" unit="" value="700"/>
+						<attribute name="(3,5)" type="long" unit="" value="1"/>
+					</feature>
+				</and>
+			</and>
+		</and>
+	</struct>
+	<constraints>
+		<rule>
+			<imp>
+				<var>led-alarm-system</var>
+				<var>alarm-system</var>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>led-em-heatable</var>
+				<var>em-heatable</var>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>led-central-locking</var>
+				<var>central-locking</var>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>rc-key</var>
+				<var>central-locking</var>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>rck-alarm-system</var>
+				<var>alarm-system</var>
+			</imp>
+		</rule>
+		<rule>
+			<imp>
+				<var>rck-pw-automatic</var>
+				<not>
+					<var>pw-manual</var>
+				</not>
+			</imp>
+		</rule>
+	</constraints>
+</extendedFeatureModel>
